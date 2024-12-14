@@ -1,0 +1,39 @@
+#!/bin/bash
+
+: ' This Script is Created to perform foillowing
+   - Disable RedHat Repos
+   - Uninstall Chrony
+   - Create Users
+  '
+
+
+
+if [ `id -u` != 0 ];then
+        echo ""
+        echo -e "\e[31m Failed: Please Run this Script as root\e[0m\n"
+        exit 1
+fi
+
+echo -e "RUNNING TASK1.............."
+subscription-manager repos --disable=rhel* &>/dev/null
+
+echo -e "RUNNING TASK2.............."
+dnf remove chrony -q -y &>/dev/null
+echo -e "RUNNING TASK3.............."
+# Define an array of usernames and their corresponding UIDs
+declare -A users
+users=( ["user1"]=4001 ["user2"]=4002 ["user3"]=4003 )
+userdel -r user1 &>/dev/null
+userdel -r user2 &>/dev/null
+userdel -r user3 &>/dev/null
+
+# Loop through the array and create users with specific UIDs
+for user in "${!users[@]}"; do
+    uid=${users[$user]}
+    useradd -u $uid -b /rhome -M $user >/dev/null
+    #if [ $? -eq 0 ]; then
+    #    echo "User $user with UID $uid created successfully."
+    #else
+    #    echo "Failed to create user $user with UID $uid."
+    #fi
+done

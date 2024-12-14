@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+if [ `id -u` != 0 ];then
+        echo ""
+        echo -e "\e[31m Failed: Please Run this Script as root\e[0m\n"
+        exit 1
+fi
+
+#!/bin/bash
+
+# Define an array of usernames and their corresponding UIDs
+declare -A users
+users=( ["user1"]=4001 ["user2"]=4002 ["user3"]=4003 )
+
+# Loop through the array and create users with specific UIDs
+for user in "${!users[@]}"; do
+    uid=${users[$user]}
+    sudo useradd -u $uid -b /remoteusers $user >/dev/null
+    if [ $? -eq 0 ]; then
+        echo "User $user with UID $uid created successfully."
+    else
+        echo "Failed to create user $user with UID $uid."
+    fi
+done
