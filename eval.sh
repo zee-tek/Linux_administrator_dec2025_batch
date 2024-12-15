@@ -37,7 +37,9 @@ check_pw() {
 ###############################################################################
 check_interface() {
     if ip link show "$1" > /dev/null 2>&1; then
-       echo -e "Network interface $1 exists."
+       echo -e "\nNetwork interface $1 exists.\n"
+       echo -e "Running Validation\n"
+       echo -e "------------------------------------------\n"
        return 0
     else
        echo -e "\e[31mNetwork interface $1 does not exist. Please try again.\e[0m\n"
