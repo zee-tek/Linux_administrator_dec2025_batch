@@ -7,6 +7,8 @@
    - Create autofs --DONE
    - check root pw --DONE
    - check chrony  --DONE
+   - check group   --DONE
+   - check Users   --DONE
   '
 
 
@@ -67,6 +69,153 @@ validate_autofs() {
         fi
 }
 	
+################################################################################
+grp="admins"
+check_grp() {
+
+      if [ `getent group admins` ];then
+        echo -e "\e[32mGroup: Pass\e[0m\n"
+      else
+        echo -e "\e[31mGroup: Fail\e[0m\n"
+      fi
+}
+
+check_users(){
+
+    users=("harry" "natasha" "sarah")
+
+    all_users_exist=true
+
+    for user in "${users[@]}"; do
+      if ! id "$user" &>/dev/null; then
+        #echo "User $user does not exist."
+        all_users_exist=false
+      fi
+    done
+
+    if [ "$all_users_exist" = true ]; then
+        echo -e "\e[32mUSERS: Pass\e[0m\n"
+    else
+        echo -e "\e[31mUSERS: Fail\e[0m\n"
+    fi
+}
+
+
+check_grp_membership(){
+    grp="admins"
+    users=("harry" "natasha")
+
+    grp_members=true
+
+    for user in "${users[@]}"; do
+      if ! id -nG "$user" | grep -qw "$grp" &>/dev/null; then
+        grp_members=false
+      fi
+    done
+
+    if [ "$grp_members" = true ]; then
+        echo -e "\e[32mGroup_membership: Pass\e[0m\n"
+    else
+        echo -e "\e[31mGroup_membership: Fail\e[0m\n"
+    fi
+}
+
+
+
+check_usr_shell(){
+
+    lg_shell=`grep sarah /etc/passwd|awk -F : '{ print $7 }'|awk -F / '{ print $NF }'`
+    des_shell="nologin"
+    if [ $lg_shell == $des_shell ];then
+	echo -e "\e[32msarah_shell: PASS\e[0m\n"
+    else
+	echo -e "\e[31msarah_shell: Fail\e[0m\n"
+    fi
+}
+
+chk_sudo(){
+    grep "^%admins" /etc/sudoers &>/dev/null
+    sudo_st=$?
+    grep "^%admins" /etc/sudoers|grep "NOPASSWD" &>/dev/null
+    sudo_st1=$?
+
+    if [ $sudo_st -eq 0 ] && [ $sudo_st1 -eq 0 ];then
+        echo -e "\e[32mSudo_Group: Pass\e[0m\n"
+    else
+        echo -e "\e[31mSudo_Group: Fail\e[0m\n"
+    fi
+}
+
+
+check_umask(){
+
+   des_umask="0002"
+   current_umask=`su - natasha -c 'umask'`
+
+   if [ $des_umask == $current_umask ];then
+           echo -e "\e[32mUMASK: Pass\e[0m\n"
+   else
+           echo -e "\e[31mUMASK: Fail\e[0m\n"
+   fi
+}
+
+check_special_perm(){
+
+   dir="/tmp/admins"
+
+    if [ -d "$dir" ]; then
+    perm=$(stat -c "%A" "$dir")
+    if [[ $perm == *"s"* ]]; then
+        echo -e "\e[32mCollebration_DIR: Pass\e[0m\n"
+    else
+        echo -e "\e[31mCollebration_DIR: Fail\e[0m\n"
+    fi
+else
+    echo -e "\e[31madmins_dir_exists: Fail\e[0m\n"
+fi
+
+}
+
+check_special_perm2(){
+
+   dir="/tmp/admins"
+
+    if [ -d "$dir" ]; then
+    perm=$(stat -c "%A" "$dir")
+    if [[ $perm == *"t"* ]]; then
+        echo -e "\e[32mstick_bit: Pass\e[0m\n"
+    else
+        echo -e "\e[31msticky_bit: Fail\e[0m\n"
+    fi
+else
+    echo -e "\e[31madmins_dir_exists: Fail\e[0m\n"
+fi
+
+}
+
+chk_max_days(){
+   max_d=`grep '^PASS_MAX_DAYS' /etc/login.defs|awk '{print $2}'`
+
+   if [ $max_d == "90" ];then
+        echo -e "\e[32mmax_days: Pass\e[0m\n"
+   else
+        echo -e "\e[31mmax_days: Fail\e[0m\n"
+   fi
+}
+
+
+chk_enforce_pw(){
+
+    user_n="harry"
+    chage -l "$user_n" |head -n1|grep -w 'password must be changed'&>/dev/null
+    st=$?
+    if [ $st -eq 0 ]; then
+        echo -e "\e[32mPass\e[0m\n"
+    else
+        echo "\e[31mFail\e[0m\n"
+    fi
+}
+
 ################################################################################
 ip_test=`nmcli con show $n_card|grep ipv4.method|awk '{print $2}'`
 dnf repolist --enabled -q|egrep -v '^rhel|^repo'|grep -i app&>/dev/null
@@ -129,4 +278,15 @@ else
 
 fi
 
- 
+echo "Check USERS and GROUP".............
+
+         check_grp
+         check_users
+         check_grp_membership
+	 check_usr_shell
+	 chk_sudo
+	 check_umask
+	 check_special_perm
+	 check_special_perm2
+	 chk_max_days
+	 chk_enforce_pw
