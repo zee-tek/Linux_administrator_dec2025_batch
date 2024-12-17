@@ -215,10 +215,22 @@ chk_enforce_pw(){
     if [ $st -eq 0 ]; then
         echo -e "\e[32mPass\e[0m\n"
     else
-        echo "\e[31mFail\e[0m\n"
+        echo -e "\e[31mFail\e[0m\n"
     fi
 }
 
+chk_acc_exp(){
+
+   des_exp_d=45
+   chg_d=`chage -l "harry" | grep "Account expires" | awk -F ':' '{print $NF}'|sed 's/^ *//;s/ *$//'`
+   if [ `date -d +${des_exp_d}days +%Y-%m-%d` == `date -d "$chg_d" +"%Y-%m-%d"` ];then 
+	   echo -e "\e[32macc_exp: Pass\e[0m\n"
+   else 
+	   echo -e "\e[31macc_exp: Pass\e[0m\n"
+   fi
+
+
+}
 ################################################################################
 ip_test=`nmcli con show $n_card|grep ipv4.method|awk '{print $2}'`
 dnf repolist --enabled -q|egrep -v '^rhel|^repo'|grep -i app&>/dev/null
@@ -293,3 +305,4 @@ echo "Check USERS and GROUP".............
 	 check_special_perm2
 	 chk_max_days
 	 chk_enforce_pw
+	 chk_acc_exp
