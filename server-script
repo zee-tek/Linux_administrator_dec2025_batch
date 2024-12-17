@@ -23,3 +23,5 @@ for user in "${!users[@]}"; do
         echo "Failed to create user $user with UID $uid."
     fi
 done
+systemctl restart nfs-server
+systemctl enable nfs-server
