@@ -2,13 +2,14 @@
 
 
 : ' This Script evaluate students tasks
-   - Check static --DONE
-   - Check repos  --DONE
-   - Create autofs --DONE
-   - check root pw --DONE
-   - check chrony  --DONE
-   - check group   --DONE
-   - check Users   --DONE
+   - Check static 	--DONE
+   - Check repos  	--DONE
+   - Create autofs 	--DONE
+   - check root pw 	--DONE
+   - check chrony  	--DONE
+   - check group   	--DONE
+   - check Users   	--DONE
+   - check groupinstall	--DONE
   '
 
 
@@ -232,6 +233,20 @@ chk_acc_exp(){
 
 }
 ################################################################################
+chk_grp_pkg(){
+
+   dnf grouplist --installed|grep -w "RPM Development Tools" &>/dev/null
+   pk_e=$?
+   
+   if [ $pk_e -eq 0 ];then
+	   echo -e "\e[32mgrp_pkg_install: Pass\e[0m\n"
+   else
+	   echo -e "\e[31mgrp_pkg_install: Fail\e[0m\n"
+   fi
+
+
+}
+################################################################################
 ip_test=`nmcli con show $n_card|grep ipv4.method|awk '{print $2}'`
 dnf repolist --enabled -q|egrep -v '^rhel|^repo'|grep -i app&>/dev/null
 app_chk=$?
@@ -251,9 +266,9 @@ else
 fi
 
 
-echo "Checking Root PW"....................
+echo "Checking Root PW"..........
       check_pw
-echo "Checking Repositories"...............
+echo "Checking Repositories"..........
 
 if [ $app_chk -eq 0 ];then
 
@@ -293,7 +308,7 @@ else
 
 fi
 
-echo "Check USERS and GROUP".............
+echo "Check USERS and GROUP".................
 
          check_grp
          check_users
@@ -306,3 +321,7 @@ echo "Check USERS and GROUP".............
 	 chk_max_days
 	 chk_enforce_pw
 	 chk_acc_exp
+
+echo "Check Group Software Install"..........
+
+         chk_grp_pkg
