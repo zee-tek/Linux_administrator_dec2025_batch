@@ -22,7 +22,10 @@ dnf install sshpass -q -y &>/dev/null
 pkg_ecode=$?
 
 check_pw() {
-
+   
+   sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+   sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+   systemctl restart sshd &>/dev/null
    if [ $pkg_ecode -eq 0 ];then
       sshpass -p 'redhat' ssh -o StrictHostKeyChecking=no root@localhost 'pwd>/dev/null' &>/dev/null
       if [ $? -eq 0 ];then
