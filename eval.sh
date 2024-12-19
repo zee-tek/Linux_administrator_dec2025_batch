@@ -259,6 +259,23 @@ check_bzip2_compression(){
   fi
 }
 ################################################################################
+check_selinux(){
+   selinux_chk=`curl localhost:82 2>/dev/null`
+   firewall-cmd --list-ports |grep '85' &>/dev/null
+   selinux_port=$?
+   if [ "$selinux_chk" == "Practicing RHCSA9" ];then
+	 echo -e "\e[32m Pass: Selinux is good, WebSite hosting on VM is accessible \e[0m\n"
+   else
+	 echo -e "\e[31m Fail: Selinux WebSite hosting on VM is not accessible \e[0m\n"
+   fi
+
+   if [ $selinux_port -eq 0 ];then
+	 echo -e "\e[32m Pass: Selinux webserver Port is good. \e[0m\n"
+   else
+	 echo -e "\e[31m Fail: Selinux webserver Port is not good. \e[0m\n"
+   fi
+}
+################################################################################
 ip_test=`nmcli con show $n_card|grep ipv4.method|awk '{print $2}'`
 dnf repolist --enabled -q|egrep -v '^rhel|^repo'|grep -i app&>/dev/null
 app_chk=$?
@@ -342,4 +359,5 @@ echo "Check Group Software Install"..........
 
 #         check_bzip2_compression
 
-
+# echo "check website is accessible"..........
+#          check_selinux
