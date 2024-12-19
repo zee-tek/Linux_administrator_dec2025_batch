@@ -215,9 +215,9 @@ chk_enforce_pw(){
     chage -l "$user_n" |head -n1|grep -w 'password must be changed'&>/dev/null
     st=$?
     if [ $st -eq 0 ]; then
-        echo -e "\e[32mPass\e[0m\n"
+        echo -e "\e[32menforce_pw_change: Pass\e[0m\n"
     else
-        echo -e "\e[31mFail\e[0m\n"
+        echo -e "\e[31menforce_pw_change: Fail\e[0m\n"
     fi
 }
 
@@ -246,6 +246,17 @@ chk_grp_pkg(){
    fi
 
 
+}
+################################################################################
+check_bzip2_compression(){
+
+  file_n="/tmp/archive.tar"
+
+  if file "$file_n" | grep -q "bzip2 compressed data"; then
+    echo -e "\e[32mstick_bit: Pass\e[0m\n"
+  else
+    echo -e "\e[31mstick_bit: Pass\e[0m\n"
+  fi
 }
 ################################################################################
 ip_test=`nmcli con show $n_card|grep ipv4.method|awk '{print $2}'`
@@ -326,3 +337,9 @@ echo "Check USERS and GROUP".................
 echo "Check Group Software Install"..........
 
          chk_grp_pkg
+
+#echo "Check bzip2 Compressions"..........
+
+#         check_bzip2_compression
+
+
