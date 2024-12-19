@@ -186,7 +186,8 @@ check_special_perm2(){
 
     if [ -d "$dir" ]; then
     perm=$(stat -c "%A" "$dir")
-    if [[ $perm == *"t"* ]]; then
+    #if [[ $perm == *"t"* ]] || [[ $perm == *"T"* ]]; then
+     if [[ $perm == *"t"* ]] || [[ $perm == *"T"* ]];then
         echo -e "\e[32mstick_bit: Pass\e[0m\n"
     else
         echo -e "\e[31msticky_bit: Fail\e[0m\n"
