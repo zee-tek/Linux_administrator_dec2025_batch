@@ -276,6 +276,65 @@ check_selinux(){
    fi
 }
 ################################################################################
+check_journal(){
+
+  journal_dir="/var/log/journal"
+  if [ -d "$journal_dir" ] && [ "$(ls -A "$journal_dir")" ]; then
+    echo -e "\e[32mpersistent_journal: Pass\e[0m\n"
+  else
+    echo -e "\e[31mpersistent_journal: Fail\e[0m\n"
+  fi
+}
+################################################################################
+check_tuned_profile(){
+   recommended_profile=$(tuned-adm recommend)
+   current_profile=$(tuned-adm active | awk -F': ' '{print $2}')
+
+   if [ "$current_profile" == "$recommended_profile" ]; then
+     echo -e "\e[32mtuned_profile: PASS\e[0m\n"
+   else
+     echo -e "\e[31mtuned_profile: FAIL\e[0m\n"
+   fi
+}
+################################################################################
+check_cron(){
+
+
+   crontab -l -u harry |grep -q '\*/1 \* \* \* \* /bin/echo hi'
+   cron_st=$?
+
+
+   if [ $cron_st -eq 0 ];then
+        echo -e "\e[32mcron: PASS\e[0m\n"
+   else
+        echo -e "\e[31mcron: FAIL\e[0m\n"
+
+   fi
+   
+}
+
+################################################################################
+swap_check(){
+
+   swapon -s |egrep -q 'sdb1|vdb1'
+   swp_st=$?
+   swp_disk=$(swapon -s |egrep 'sdb1|vdb1' 2>/dev/null|awk -F '/' '{print $3}'|awk '{print $1}')
+   add_size="512"
+
+
+   if [ $swp_st -eq 0 ];then
+      echo -e "swp_disk_chk: Pass"
+      sw_sdb1=$(swapon -s|grep ${swp_disk}|awk '{printf $3/1023}'|awk -F "." '{print $1}')
+      if [ "$sw_sdb1" == "$add_size" ]; then
+          echo "swap_size_chk: Pass"
+      else
+          echo "swap_size_chk: Fail"
+      fi
+   else
+          echo -e "swp_disk_chk: Fail"
+   fi
+}
+################################################################################
 ip_test=`nmcli con show $n_card|grep ipv4.method|awk '{print $2}'`
 dnf repolist --enabled -q|egrep -v '^rhel|^repo'|grep -i app&>/dev/null
 app_chk=$?
@@ -359,5 +418,16 @@ echo "Check Group Software Install"..........
 
 #         check_bzip2_compression
 
-# echo "check website is accessible"..........
+#echo "check website is accessible"..........
 #          check_selinux
+
+#echo "check persistent journal"..........
+#           check_journal
+
+#echo "check tuned profile"..........
+#           check_tuned_profile
+
+#echo "check cron job"..........
+#	    check_cron
+#echo "check swap"..........
+#        swap_check
