@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+if [ `id -u` != 0 ];then
+        echo ""
+        echo -e "\e[31m Failed: Please Run this Script as root\e[0m\n"
+        exit 1
+fi
+
+echo "RUNNING TASK 1 ......................."
+dnf remove httpd-core httpd -y -q &>/dev/null
+echo "RUNNING TASK 2 ......................."
+
+dnf install httpd-core httpd -y -q &>/dev/null
+
+echo "RUNNING TASK 3 ......................."
+systemctl start httpd &>/dev/null
+
+echo "RUNNING TASK 4 ......................."
+semanage port -d -t http_port_t 82 -p tcp &>/dev/null
+sed -i 's/^List.*/Listen 82/' /etc/httpd/conf/httpd.conf
+systemctl restart httpd &>/dev/null
+echo "RUNNING TASK 5 ......................."
+
+systemctl restart httpd &>/dev/null
+
+firewall-cmd --remove-port={82/tcp,8085/tcp} --permanent &>/dev/null
+firewall-cmd --reload &>/dev/null
+echo "Practicing RHCSA9" > /var/www/html/index.html 2>/dev/null
