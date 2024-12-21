@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -rf /tmp/archive.tar
+tuned-adm active network-latency
+rm -rf /var/log/journal
+crontab -r -u harry

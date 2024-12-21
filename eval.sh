@@ -255,7 +255,7 @@ check_bzip2_compression(){
   if file "$file_n" | grep -q "bzip2 compressed data"; then
     echo -e "\e[32mstick_bit: Pass\e[0m\n"
   else
-    echo -e "\e[31mstick_bit: Pass\e[0m\n"
+    echo -e "\e[31mstick_bit: Fail\e[0m\n"
   fi
 }
 ################################################################################
