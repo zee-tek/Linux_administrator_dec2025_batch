@@ -653,7 +653,7 @@ case $question in
 
 
     *)
-	    echo "You Did not Select valid number"
+	    echo "You Did not Select valid Question number"
 	    ;;
 esac
 
