@@ -5,7 +5,7 @@ source final-eval.sh
 
 while true; do
 
-	read -p "Please select question (all or 1-15 or q to quit): " question
+	read -p "Please select question (all or 1-20 or q to quit): " question
 	echo ""
 	case $question in
 		1)
