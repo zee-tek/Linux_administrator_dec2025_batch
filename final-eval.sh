@@ -283,7 +283,7 @@ check_bzip2_compression(){
 check_selinux(){
    echo "check website is accessible"..........
    selinux_chk=`curl localhost:82 2>/dev/null`
-   firewall-cmd --list-ports |grep '85' &>/dev/null
+   firewall-cmd --list-ports |grep '82' &>/dev/null
    selinux_port=$?
    if [ "$selinux_chk" == "Practicing RHCSA9" ];then
 	 echo -e "\e[32mSelinux_Web_Running: Pass \e[0m\n"
