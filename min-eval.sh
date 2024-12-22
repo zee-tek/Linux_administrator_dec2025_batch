@@ -57,8 +57,7 @@ check_tuned_profile(){
 check_cron(){
 
    echo "checking cron".........................
-
-   crontab -l -u natasha |grep -q '\*/1 \* \* \* \* /bin/echo hi >>/tmp/cron-test'
+   grep -q "RHCSA9" /var/log/messages
    cron_st=$?
 
 

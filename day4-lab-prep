@@ -7,3 +7,4 @@ systemctl disable tuned --now
 rm -rf /var/log/journal
 crontab -r -u harry
 crontab -r -u natasha
+echo >/var/log/messages
