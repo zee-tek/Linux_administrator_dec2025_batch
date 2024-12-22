@@ -18,7 +18,7 @@ systemctl start httpd &>/dev/null
 
 echo "RUNNING TASK 4 ......................."
 
-sed -i 's/^List.*/Listen 82/' /etc/httpd/conf/httpd.conf
+sed -i 's/^List.*/Listen 82/' /etc/httpd/conf/httpd.conf &>/dev/null
 
 echo "RUNNING TASK 5 ......................."
 rm -rf /web1 &>/dev/null
@@ -26,10 +26,10 @@ mkdir /web1
 
 
 echo "RUNNING TASK 6 ......................."
-sed -i 's/\(^DocumentRoot.*\)/DocumentRoot "\/web1"/' /etc/httpd/conf/httpd.conf
+sed -i 's/\(^DocumentRoot.*\)/DocumentRoot "\/web1"/' /etc/httpd/conf/httpd.conf &>/dev/null
 
 echo "RUNNING TASK 7 ......................."
-sed -i '0,/<Directory "\/var\/www">/s|<Directory "/var/www">|<Directory "/web1">|' /etc/httpd/conf/httpd.conf
+sed -i '0,/<Directory "\/var\/www">/s|<Directory "/var/www">|<Directory "/web1">|' /etc/httpd/conf/httpd.conf &>/dev/null
 
 
 echo "RUNNING TASK 8 ......................."
