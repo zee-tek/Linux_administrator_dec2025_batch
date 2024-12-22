@@ -52,7 +52,7 @@ mkdir /tmp/files
 rm -rf /var/tmp/boo_logs
 rm -rf /var/tmp/string_output
 
-echo "RUNNING TASK 10 ......................"
+echo "RUNNING TASK 11 ......................"
 crontab -ru natasha &>/dev/null
 userdel -r harry &>/dev/null
 userdel -r natasha &>/dev/null
@@ -64,7 +64,7 @@ systemctl restart tuned
 systemctl disable tuned --now &>/dev/null
 rm -rf /var/log/journal
 echo >/var/log/messages
-echo "RUNNING TASK 11 ......................"
+echo "RUNNING TASK 12 ......................"
 repo_dir=/etc/yum.repos.d/
 find "$repo_dir" -type f -name "*.repo" -not -name "redhat.repo" -exec rm -f {} \; &>/dev/null
 file=/etc/chrony.conf
