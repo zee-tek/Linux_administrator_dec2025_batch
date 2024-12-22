@@ -8,7 +8,7 @@ if [ `id -u` != 0 ];then
 fi
 
 echo "RUNNING TASK 1 ......................."
-dnf remove httpd-core httpd -y -q &>/dev/null
+#dnf remove httpd-core httpd -y -q &>/dev/null
 echo "RUNNING TASK 2 ......................."
 
 dnf install httpd-core httpd -y -q &>/dev/null
@@ -19,6 +19,7 @@ systemctl start httpd &>/dev/null
 echo "RUNNING TASK 4 ......................."
 
 sed -i 's/^List.*/Listen 82/' /etc/httpd/conf/httpd.conf &>/dev/null
+systemctl start httpd &>/dev/null
 
 echo "RUNNING TASK 5 ......................."
 rm -rf /web1 &>/dev/null
