@@ -322,16 +322,21 @@ check_tuned_profile(){
 ################################################################################
 check_cron(){
    echo "check cron job"..........
-   crontab -l -u harry |grep -q '\*/1 \* \* \* \* /bin/echo hi >>/tmp/cron-test'
+   grep -q "RHCSA9" /var/log/messages
    cron_st=$?
-
-
    if [ $cron_st -eq 0 ];then
-        echo -e "\e[32mcron: PASS\e[0m\n"
+	   echo -e "\e[32mcron: PASS\e[0m\n"
    else
-        echo -e "\e[31mcron: FAIL\e[0m\n"
-
+	   echo -e "\e[31mcron: FAIL\e[0m\n"
    fi
+   #crontab -l -u harry |grep -q '\*/1 \* \* \* \* /bin/echo hi >>/tmp/cron-test'
+   #cron_st=$?
+   #if [ $cron_st -eq 0 ];then
+   #    echo -e "\e[32mcron: PASS\e[0m\n"
+   #else
+   #     echo -e "\e[31mcron: FAIL\e[0m\n"
+
+   #fi
    
 }
 ################################################################################
