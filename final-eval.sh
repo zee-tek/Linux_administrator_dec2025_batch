@@ -238,12 +238,20 @@ chk_acc_exp(){
    echo "Check account expiration"...............
    des_exp_d=45
    chg_d=`chage -l "harry" | grep "Account expires" | awk -F ':' '{print $NF}'|sed 's/^ *//;s/ *$//'`
-   if [ `date -d +${des_exp_d}days +%Y-%m-%d` == `date -d "$chg_d" +"%Y-%m-%d"` ];then 
-	   echo -e "\e[32macc_exp: Pass\e[0m\n"
-   else 
-	   echo -e "\e[31macc_exp: Pass\e[0m\n"
+   chage -l "harry" | grep "Account expires"|grep -q never
+   chg_never=$?
+ if [ $chg_never -ne 0 ];then
+
+   if [ `date -d +${des_exp_d}days +%Y-%m-%d` == `date -d "$chg_d" +"%Y-%m-%d"` ];then
+           echo -e "\e[32macc_exp: Pass\e[0m\n"
+   else
+           echo -e "\e[31macc_exp: Fail\e[0m\n"
    fi
 
+ else
+
+           echo -e "\e[31macc_exp_set: Fail\e[0m\n"
+ fi
 
 }
 ################################################################################

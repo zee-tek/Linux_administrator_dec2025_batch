@@ -5,7 +5,7 @@ source final-eval.sh
 
 while true; do
 
-	read -p "Please select question (all or 1-19 or q to quit): " question
+	read -p "Please select question (all or 1-15 or q to quit): " question
 	echo ""
 	case $question in
 		1)
@@ -62,23 +62,23 @@ while true; do
 		15)
 			check_journal
 			;;
-		16)
-			swap_check
-			;;
-		17)
+		#16)
+		#	swap_check
+		#	;;
+		#17)
 
-			check_lvm1
-			;;
-		18)
-			check_lvm2
-			;;
-		19)
+		#	check_lvm1
+		#	;;
+		#18)
+		#	check_lvm2
+		#	;;
+		#19)
 
-			check_lvm3
-			;;
-		20)
-			check_lvm4
-			;;
+		#	check_lvm3
+		#	;;
+		#20)
+		#	check_lvm4
+		#	;;
 
 		all)
 			check_pw
@@ -103,8 +103,8 @@ while true; do
 			check_cron
 			check_tuned_profile
 			check_journal
-			swap_check
-			check_lvm
+			#swap_check
+			#check_lvm
 			;;
 		q)
 			break
