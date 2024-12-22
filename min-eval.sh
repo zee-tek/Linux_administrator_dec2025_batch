@@ -58,7 +58,7 @@ check_cron(){
 
    echo "checking cron".........................
 
-   crontab -l -u harry |grep -q '\*/1 \* \* \* \* /bin/echo hi >>/tmp/cron-test'
+   crontab -l -u natasha |grep -q '\*/1 \* \* \* \* /bin/echo hi >>/tmp/cron-test'
    cron_st=$?
 
 

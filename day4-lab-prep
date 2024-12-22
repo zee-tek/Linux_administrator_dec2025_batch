@@ -1,6 +1,9 @@
 #!/bin/bash
 
 rm -rf /tmp/archive.tar
-tuned-adm active network-latency
+systemctl restart tuned
+tuned-adm profile network-latency
+systemctl disable tuned --now
 rm -rf /var/log/journal
 crontab -r -u harry
+crontab -r -u natasha
