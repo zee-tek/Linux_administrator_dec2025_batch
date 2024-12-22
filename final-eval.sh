@@ -451,7 +451,7 @@ check_lvm1(){
    filesystem="/app1"
    df -h|grep -q app1
    fs_st=$?
-   echo "Checking LVM Question 16".................
+   echo "Checking LVM Question 17".................
    if [ $fs_st -eq 0 ];then
 	   
 	  filesystem="/app1"
@@ -470,7 +470,7 @@ check_lvm2(){
    filesystem="/app2"
    df -h|grep -q app2
    fs_st=$?
-   echo "Checking LVM Question 17".................
+   echo "Checking LVM Question 18".................
    if [ $fs_st -eq 0 ];then
 	  echo "check fs shrink question 17"................
 	  filesystem="/app2"
@@ -489,7 +489,7 @@ check_lvm3(){
    filesystem="/app3"
    df -h|grep -q app3
    fs_st=$?
-   echo "Checking LVM Question 18".................
+   echo "Checking LVM Question 19".................
    if [ $fs_st -eq 0 ];then
 	  echo "check fs extend question 18"................
 	  filesystem="/app3"
@@ -511,7 +511,7 @@ check_lvm4(){
    vg_st=$?
    lvs 2>/dev/null|grep ${lv_n} &>/dev/null
    lv_st=$?
-   echo "Checking LVM Question 19".................
+   echo "Checking LVM Question 20".................
 
    if [ $vg_st -eq 0 ] && [ $lv_st -eq 0 ];then
 
