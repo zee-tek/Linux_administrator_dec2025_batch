@@ -15,7 +15,7 @@ check_selinux(){
    echo "checking selinux"...................
 
    selinux_chk=`curl localhost:82 2>/dev/null`
-   firewall-cmd --list-ports |grep '85' &>/dev/null
+   firewall-cmd --list-ports |grep '82' &>/dev/null
    selinux_port=$?
    if [ "$selinux_chk" == "Practicing RHCSA9" ];then
          echo -e "\e[32m Pass: Selinux is good, WebSite hosting on VM is accessible \e[0m\n"
