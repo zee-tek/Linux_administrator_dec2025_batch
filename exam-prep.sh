@@ -54,17 +54,17 @@ rm -rf /var/tmp/string_output
 
 echo "RUNNING TASK 10 ......................"
 crontab -ru natasha &>/dev/null
-userdel -r harry
-userdel -r natasha
-userdel -r sarah
-groupdel admins
+userdel -r harry &>/dev/null
+userdel -r natasha &>/dev/null
+userdel -r sarah &>/dev/null
+groupdel admins &>/dev/null
 systemctl restart tuned
 tuned-adm profile network-latency
 systemctl restart tuned
-systemctl disable tuned --now
+systemctl disable tuned --now &>/dev/null
 rm -rf /var/log/journal
 echo >/var/log/messages
-echo "RUNNING TASK 10 ......................"
+echo "RUNNING TASK 11 ......................"
 repo_dir=/etc/yum.repos.d/
 find "$repo_dir" -type f -name "*.repo" -not -name "redhat.repo" -exec rm -f {} \; &>/dev/null
 file=/etc/chrony.conf
@@ -78,11 +78,9 @@ echo "RUNNING Final Task ..................."
 echo "Practicing RHCSA9" > /web1/index.html
 echo "Hello From myweb1 Container" >/home/linda/web/html/index.html
 dnf groupremove -q "RPM Development Tools" -y &>/dev/null
-echo -e "RUNNING TASK1.............."
 subscription-manager repos --disable=rhel* &>/dev/null
 
 #dnf remove chrony -q -y &>/dev/null
-echo -e "RUNNING TASK3.............."
 declare -A users
 users=( ["user1"]=4001 ["user2"]=4002 ["user3"]=4003 )
 userdel -r user1 &>/dev/null
