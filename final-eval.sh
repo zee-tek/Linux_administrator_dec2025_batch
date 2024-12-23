@@ -310,6 +310,7 @@ check_journal(){
 ################################################################################
 check_tuned_profile(){
    echo "check tuned profile"..........
+   systemctl restart tuned
    recommended_profile=$(tuned-adm recommend)
    current_profile=$(tuned-adm active | awk -F': ' '{print $2}')
 
@@ -344,14 +345,15 @@ swap_check(){
    echo "check swap"..........
    swapon -s |egrep -q 'sdb1|vdb1'
    swp_st=$?
-   swp_disk=$(swapon -s |egrep 'sdb1|vdb1' 2>/dev/null|awk -F '/' '{print $3}'|awk '{print $1}')
-   add_size="512"
+   #swp_disk=$(swapon -s |egrep 'sdb1|vdb1' 2>/dev/null|awk -F '/' '{print $3}'|awk '{print $1}')
+   #add_size="512"
 
 
    if [ $swp_st -eq 0 ];then
       echo -e "\e[32mswp_disk_chk: Pass\e[0m\n"
-      sw_sdb1=$(swapon -s|grep ${swp_disk}|awk '{printf $3/1023}'|awk -F "." '{print $1}')
-      if [ "$sw_sdb1" == "$add_size" ]; then
+      #sw_sdb1=$(swapon -s|grep ${swp_disk}|awk '{printf $3/1023}'|awk -F "." '{print $1}')
+      sw_sdb1=$(lsblk|grep SWAP|egrep 'sdb1|vdb1'|awk '{print $4}'|tr -d M)
+      if [ "$sw_sdb1" == "511" ]||[ "$sw_sdb1" == "512" ]; then
           echo -e "\e[32mswap_size_chk: Pass\e[0m\n"
       else
           echo -e "\e[31mswap_size_chk: Fail\e[0m\n"
