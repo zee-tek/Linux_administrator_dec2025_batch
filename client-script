@@ -77,7 +77,7 @@ file=/etc/chrony.conf
 sed -i '/^server/d' "$file"
 dnf remove -q autofs -y &>/dev/null
 s_file=/etc/sudoers
-sed -i '/^%admins/d' "$file"
+sed -i '/^%admins/d' "$s_file"
 sed -i 's/^PASS_MAX_DAYS.*/PASS_MAX_DAYS 99999/' /etc/login.defs &>/dev/null
 
 echo "RUNNING Final Task ..................."
