@@ -459,9 +459,9 @@ check_lvm1(){
 	  filesystem="/app1"
 	  filesystem_size=$(df -m | grep "$filesystem" | awk '{print $2}')
 	  if [ $filesystem_size -ge 250 ] && [ $filesystem_size -le 300 ]; then
-	      echo -e "\e[32mQ16: Pass\e[0m\n"
+	      echo -e "\e[32mQ17: Pass\e[0m\n"
 	  else
-	      echo -e "\e[31mQ16: Fail\e[0m\n"
+	      echo -e "\e[31mQ17: Fail\e[0m\n"
 	  fi
    else
 	   echo -e "\e[31mCheck $filesystem exists: Fail\e[0m\n"
@@ -474,13 +474,13 @@ check_lvm2(){
    fs_st=$?
    echo "Checking LVM Question 18".................
    if [ $fs_st -eq 0 ];then
-	  echo "check fs shrink question 17"................
+	  echo "check fs shrink question 18"................
 	  filesystem="/app2"
 	  filesystem_size=$(df -m | grep "$filesystem" | awk '{print $2}')
 	  if [ $filesystem_size -ge 260 ] && [ $filesystem_size -le 300 ]; then
-	      echo -e "\e[32m Q17: Pass\e[0m\n"
+	      echo -e "\e[32m Q18: Pass\e[0m\n"
 	  else
-	      echo -e "\e[31m Q17: Fail\e[0m\n"
+	      echo -e "\e[31m Q18: Fail\e[0m\n"
 	  fi
    else
 	   echo -e "\e[31mCheck $filesystem exists: Fail\e[0m\n"
@@ -493,13 +493,13 @@ check_lvm3(){
    fs_st=$?
    echo "Checking LVM Question 19".................
    if [ $fs_st -eq 0 ];then
-	  echo "check fs extend question 18"................
+	  echo "check fs extend question 19"................
 	  filesystem="/app3"
 	  filesystem_size=$(df -m | grep "$filesystem" | awk '{print $2}')
 	  if [ $filesystem_size -ge 450 ] && [ $filesystem_size -le 500 ]; then
-	       echo -e "\e[32m Q18: Pass\e[0m\n"
+	       echo -e "\e[32m Q19: Pass\e[0m\n"
 	  else
-	       echo -e "\e[31m Q18: Fail\e[0m\n"
+	       echo -e "\e[31m Q19: Fail\e[0m\n"
 	  fi
    else
 	   echo -e "\e[31mCheck $filesystem exists: Fail\e[0m\n"
@@ -517,25 +517,54 @@ check_lvm4(){
 
    if [ $vg_st -eq 0 ] && [ $lv_st -eq 0 ];then
 
-	  echo "check vg PE and lv LE question 19"..............
+	  echo "check vg PE and lv LE question 20"..............
 	  pe_req_size=8
 	  pe_size=$(vgdisplay vg4 2>/dev/null|grep "PE Size"|awk '{print $(NF-1)}'|awk -F '.' '{print $1}')
 	  req_le=50
 	  aloc_le=$(lvdisplay /dev/vg4/lv4 2>/dev/null|grep 'Current LE'|awk '{print $(NF)}')
 
 	  if [ $pe_size == $pe_req_size ];then
-	         echo -e "\e[32m Q19 Task1: Pass\e[0m\n"
+	         echo -e "\e[32m Q20 Task1: Pass\e[0m\n"
 	  else
-		 echo -e "\e[31m Q19 Task1: Fail\e[0m\n"
+		 echo -e "\e[31m Q20 Task1: Fail\e[0m\n"
 	  fi
 	  if [ $aloc_le == $req_le ];then
-		   echo -e "\e[32m Q19 Task2: Pass\e[0m\n"
+		   echo -e "\e[32m Q20 Task2: Pass\e[0m\n"
 	  else
-		   echo -e "\e[31m Q19 Task2: Fail\e[0m\n"
+		   echo -e "\e[31m Q20 Task2: Fail\e[0m\n"
 	  fi
    else
 	   echo -e "\e[31mcheck $vg_n and $lv_n exists: Fail\e[0m\n"
    fi
+
+}
+
+######################################################################################
+check_container(){
+
+   su - linda -c "podman images|grep -w webby" &>/dev/null
+   img_st=$?
+
+   if [ $img_st -eq 0 ];then
+	   echo -e "\e[32mcheck_Image: Pass\e[0m\n"
+   else
+	    echo -e "\e[31mcheck_Image: Fail\e[0m\n"
+   fi
+
+}
+
+check_container2(){
+
+     ps -ef|grep -w myweb1|grep -v grep &>/dev/null
+     con_st=$?
+
+     if [ $con_st -eq 0 ];then
+           echo -e "\e[32mcheck_container: Pass\e[0m\n"
+     else
+            echo -e "\e[31mcheck_container: Fail\e[0m\n"
+     fi
+
+
 
 }
 ######################################################################################
