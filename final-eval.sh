@@ -542,7 +542,7 @@ check_lvm4(){
 ######################################################################################
 check_container(){
 
-   su - linda -c "podman images|grep -w webby" &>/dev/null
+   su - linda -c "podman images|grep -w webimage" &>/dev/null
    img_st=$?
 
    if [ $img_st -eq 0 ];then
