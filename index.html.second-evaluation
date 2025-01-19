@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RHCSA First Evaluation 2024</title>
+    <style>
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px; /* Adds space between the lines */
+        }
+        .radio-group label {
+            margin-right: 10px;
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+        .text-box {
+            margin-left: 10px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px; /* Space below the title */
+        }
+        .submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px; /* Adds space above the button */
+        }
+    </style>
+</head>
+<body>
+    <div class="title">RHCSA Second Evaluation 2024</div>
+
+    <!-- Generate 15 radio groups -->
+
+    <div class="radio-group">
+        <label>1:</label>
+        <label>
+            <input type="radio" name="valuation1" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation1" value="revisit"> Revisit
+        </label>
+        <p>Recover root password
+        </p>
+
+    </div>
+
+
+
+
+
+
+    <div class="radio-group">
+        <label>2:</label>
+        <label>
+            <input type="radio" name="valuation2" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation2" value="revisit"> Revisit
+        </label>
+        <p>Assign Static IP 192.168.1.81 to servera. Netmask: 255.255.255.0 Gateway: 192.168.1.1 DNS: 192.168.1.1.
+           "For our Evaluation if your network address, Gateway or DNS address is different, Please let me know."
+        </p>
+    </div>
+
+    <div class="radio-group">
+        <label>3:</label>
+        <label>
+            <input type="radio" name="valuation3" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation3" value="revisit"> Revisit
+        </label>
+        <p>Configure YUM repos, Repositories URLs can be found on Instruction page
+        </p>
+    </div>
+
+
+    <div class="radio-group">
+        <label>4:</label>
+        <label>
+            <input type="radio" name="valuation4" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation4" value="revisit"> Revisit
+        </label>
+        <p>Add following users: natasha, harry, sarah. Natasha should be a part of seconday group "admins". Sarah should not have access to login shell</p>
+    </div>
+
+
+    <div class="radio-group">
+        <label>5:</label>
+        <label>
+            <input type="radio" name="valuation5" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation5" value="revisit"> Revisit
+        </label>
+        <p>Group "admins" should have full access to dir /tmp/admins. Group "admins" should be the group owner of all the new files/dirs created under /tmp/admins and no one can delete anything from this Dir besides users who own those files.
+
+        </p>
+    </div>
+
+    <div class="radio-group">
+        <label>6:</label>
+        <label>
+            <input type="radio" name="valuation6" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation6" value="revisit"> Revisit
+        </label>
+        <p>Create an archive of /usr/bin and call it archive.tar and compress it with bzip2
+
+        </p>
+    </div>
+
+
+    <div class="radio-group">
+        <label>7:</label>
+        <label>
+            <input type="radio" name="valuation7" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation7" value="revisit"> Revisit
+        </label>
+        <p>Configure autofs. The share your-nfs-server-ip:/home/john should be mounted on /share/john.</p>
+    </div>
+
+
+    <div class="radio-group">
+        <label>8:</label>
+        <label>
+            <input type="radio" name="valuation8" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation8" value="revisit"> Revisit
+        </label>
+        <p> Configure password policy so all new users will have maximum password usage period of 90 days
+        </p>
+
+    </div>
+
+
+
+
+    <div class="radio-group">
+        <label>9:</label>
+        <label>
+            <input type="radio" name="valuation9" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation9" value="revisit"> Revisit
+        </label>
+        <p>Configure chrony such that time is synchronized with "serverb" ntp server
+        </p>
+
+    </div>
+
+
+
+
+
+
+    <div class="radio-group">
+        <label>10:</label>
+        <label>
+            <input type="radio" name="valuation10" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation10" value="revisit"> Revisit
+        </label>
+        <p>Create a SWAP partition of 512 MB on /dev/sdb and mount it permanently
+        </p>
+
+    </div>
+
+
+
+
+    <div class="radio-group">
+        <label>11:</label>
+        <label>
+            <input type="radio" name="valuation11" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation11" value="revisit"> Revisit
+        </label>
+        <p>Configure LVM such that A logical volume called "database" with size 1GB is created. It is formatted with VFAT and mounted on /mount1. "database" logical volume is a part of volume group "dbvg" which has a PE size of 8MiB.
+           The physical volume is created using /dev/sdb.
+        </p>
+
+    </div>
+
+
+
+
+
+    <div class="radio-group">
+        <label>12:</label>
+        <label>
+            <input type="radio" name="valuation12" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation12" value="revisit"> Revisit
+        </label>
+        <p>Configure system tuning so that the recommended profile is selected.
+        </p>
+
+    </div>
+
+
+
+
+    <div class="radio-group">
+        <label>13:</label>
+        <label>
+            <input type="radio" name="valuation13" value="done"> Done
+        </label>
+        <label>
+            <input type="radio" name="valuation13" value="revisit"> Revisit
+        </label>
+        <p>Preserve Journals. Redirect the output of previous boot logs to /var/tmp/boo_logs
+        </p>
+
+    </div>
+
