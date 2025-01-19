@@ -1,0 +1,359 @@
+
+ 1  dnf install container-tools
+    2  dnf download container-tools
+    3  ls
+    4  rpm -qp container-tools-1-14.el9.noarch.rpm --provides
+    5  rpm -qpR container-tools-1-14.el9.noarch.rpm --provides
+    6  rm -rf container-tools-1-14.el9.noarch.rpm
+    7  dnf download container-tools --resolve
+    8  ls
+    9  mkdir AppStream
+   10  mv *.rpm AppStream/
+   11  ls
+   12  ls AppStream/
+   13  dnf download nfs-utils --resolve
+   14  ls
+   15  mkdir BaseOs
+   16  mv *.rpm BaseOs/
+   17  cd BaseOs/
+   18  dnf download httpd --resolve
+   19  dnf download wget --resolve
+   20  ls
+   21  dnf install createrepo -y
+   22  createrepo .
+   23  ls
+   24  cd ..
+   25  cd AppStream/
+   26  createrepo .
+   27  ls
+   28  cd ..
+   29  cd BaseOs/
+   30  dnf download bz --resolve
+   31  which bz
+   32  dnf download bz2 --resolve
+   33  dnf download bzip2 --resolve
+   34  ls
+   35  rm -rf repodata/
+   36  createrepo .
+   37  ls
+   38  pwd
+   39  cd  ..
+   40  ls /etc/yum.repos.d/
+   41  mkdir /var/tmp/repos
+   42  cd /etc/yum.repos.d/
+   43  ls
+   44  mv * /var/tmp/repos/
+   45  ls
+   46  dnf repolist
+   47  vi temp.repo
+   48  rm -rf temp.repo
+   49  mv /var/tmp/repos/* .
+   50  ls
+   51  dnf repolist
+   52  clear
+   53  cat /etc/redhat-release
+   54  clear
+   55  dnf install httpd -y
+   56  mv /root/BaseOs /var/www/html/
+   57  mv /root/AppStream /var/www/html/
+   58  man semanage
+   59  man  semanage-fcontext
+   60  semanage fcontext -a -t httpd_sys_content_t "/var/www/html(/.*)?"
+   61  man  semanage-fcontext
+   62  restorecon -R -v /var/www/html/
+   63  ls -lZ /var/www/
+   64  ls -lZ /var/www/html
+   65  systemclt start httpd
+   66  systemctl -v start httpd
+   67  systemctl start httpd --v
+   68  systemctl start httpd -v
+   69  systemctl start httpd
+   70  systemctl status httpd
+   71  systemctl enable httpd
+   72  systemctl status httpd
+   73  ls
+   74  systemctl status firewalld
+   75  curl http://localhost
+   76  ls /var/www/html/
+   77  history
+   78  which chronyc
+   79  ls
+   80  dnf download autofs --resolve ---desdir=Baseos
+   81  dnf download autofs --resolve ---destdir=Baseos
+   82  dnf download autofs --resolve ---destdir=Baseos|grep dir
+   83  dnf |grep dir
+   84  dnf download autofs --resolve --destdir=BaseOs
+   85  cd BaseOs/
+   86  ls
+   87  rm -rf repodata/
+   88  createrepo .
+   89  cd ..
+   90  semanage fcontext -a -t httpd_sys_content_t "/var/www/html(/.*)?"
+   91  restorecon -R -v /var/www/html/
+   92  ls
+   93  cd /etc/yum.repos.d/
+   94  ls
+   95  mv * /var/tmp/repos/
+   96  vi temp.repo
+   97  dnf repolist
+   98  dnf install autofs
+   99  dnf install container-tools
+  100  clear
+  101  history
+  102  dnf repolist
+  103  dnf install httpd
+  104  dnf download coreutils
+  105  ls
+  106  cp coreutils-8.32-35.el9.x86_64.rpm /var/www/html/BaseOs/
+  107  cd /var/www/html/BaseOs/
+  108  rm -rf repodata/
+  109  createrepo .
+  110  rm -rf coreutils-8.32-35.el9.x86_64.rpm
+  111  cd
+  112  dnf downoload coreutils --resolve
+  113  dnf download coreutils --resolve
+  114  ls
+  115  rm -rf coreutils-8.32-35.el9.x86_64.rpm
+  116  dnf download coreutils --resolve
+  117  ls
+  118  rpm -qRP coreutils-8.32-35.el9.x86_64.rpm
+  119  rpm -qRP coreutils-8.32-35.el9.x86_64.rpm|grep lib|wc -l
+  120  exit
+  121  cd /tmp/
+  122  mv AppStream /var/www/html/
+  123  mv BaseOs /var/www/html/
+  124  man semanage-fcontext
+  125  semanage fcontext -a -t httpd_sys_content_t "/var/www/html(/.*)?
+  126  semanage fcontext -a -t httpd_sys_content_t "/var/www/html(/.*)?"
+  127  restorecon -R -v /var/www/html
+  128  ls -lZ /var/www/html/
+  129  cd /var/www/html/
+  130  cd AppStream/
+  131  ls
+  132  createrepo .
+  133  cd ../BaseOs/
+  134  createrepo .
+  135  cd ..
+  136  exit
+  137  cd /var/www/html/
+  138  vi index.html
+  139  ls -lZ
+  140  vi index.html
+  141  exit
+  142  vi /var/www/html/index.html
+  143  cp /var/www/html/index.html /var/tmp/
+  144  vi /var/www/html/index.html
+  145  vi /var/www/html/instructions
+  146  vi index.html
+  147  cd /var/www/html/
+  148  ls
+  149  vi index.html
+  150  ls
+  151  mv index.html index.html.bk
+  152  mv instructions instructions.bk
+  153  vi index.html.bk
+  154  mv index.html.bk index.html
+  155  ls -lZ index.html
+  156  vi index.html
+  157  mv instructions.bk instructions
+  158  vi instructions
+  159  dnf install nfs-utils -y
+  160  mkdir /tmp/my-logs
+  161  echo "/tmp/my-logs  *(rw,no_root_squash)" >> /etc/exports
+  162  systemctl status firewalld
+  163  exportfs -avr
+  164  showmount -e localhost
+  165  dnf install -y rpcbind
+  166  systemctl status nfs
+  167  systemctl status nfs-service
+  168  systemctl status nfs-server
+  169  systemctl start nfs-server
+  170  systemctl status nfs-server
+  171  showmount -e localhost
+  172  systemctl enable nfs-server
+  173  exit
+  174  yum install portmap -y
+  175  exit
+  176  iptables -L
+  177  tail /var/log/messages
+  178  tail /var/log/secure
+  179  showmount -e
+  180  cat /etc/hosts.allow~
+  181  systemctl restart nfs-server
+  182  showmount -e
+  183  cat /etc/exports
+  184  cat /etc/redhat-release
+  185  dnf install firewall* -y
+  186  systemctl start firewalld
+  187  systemctl enable firewalld
+  188  firewall-cmd --permanent --add-service=nfs
+  189  firewall-cmd --permanent --add-service=rpc-bind
+  190  firewall-cmd --permanent --add-service=mountd
+  191  firewall-cmd --reload
+  192  firewall-cmd --list-services
+  193  systemctl restart firewalld
+  194  cat /etc/exports
+  195  vi /etc/exports
+  196  chmod 777 /tmp/my-logs
+  197  yum remove firewall* -y
+  198  cd /var/www/html/
+  199  vi Containerfile
+  200  vi Containerfile
+  201  cd /var/www/html/instructions
+  202  vi /var/www/html/instructions
+  203  cd /var/www/html/
+  204  ls
+  205  vi timer.html
+  206  vi styles.css
+  207  vi script.js
+  208  mv timer.html timer.html.bk
+  209  mv styles.css styles.css.bk
+  210  mv script.js script.js.bk
+  211  cd /var/www/html/
+  212  ls
+  213  vi index.html
+  214  mv index.html index.html.bk-`date +%F`
+  215  ls
+  216  cp index.html.bk-2024-09-22 index.html
+  217  vi index.html
+  218  exit
+  219  mv index.html index.html.today
+  220  mv index.html.bk-2024-09-22 index.html
+  221  ls
+  222  vi index.html
+  223  ls
+  224  mv index.html index.html.bk-2024-09-22
+  225  ls
+  226  mv index.html.today index.html
+  227  vi index.html
+  228  clear
+  229  ls
+  230  vi instructions
+  231  cp instructions instructions-final
+  232  vi instructions
+  233  cd /var/www/html/
+  234  ls
+  235  vi instructions
+  236  vi index.html
+  237  cd /var/www/html/
+  238  ls
+  239  vi index.html
+  240  clear
+  241  vi index.html
+  242  exit
+  243  cd /var/www/html/
+  244  vi index.html
+  245  cd /var/www/html/
+  246  ls
+  247  vi Containerfile
+  248  systemctl status httpd
+  249  systemctl restart httpd
+  250  systemctl status httpd
+  251  clear
+  252  which git
+  253  ls
+  254  dnf install git -y
+  255  useradd student
+  256  passwd student
+  257  clear
+  258  exit
+  259  l
+  260  ls
+  261  cd /var/www/html/
+  262  ls
+  263  systemctl restart httpd
+  264  curl localhost/final
+  265  curl localhost/final.html
+  266  mv final.html final
+  267  ls
+  268  cd /var/www/html/
+  269  ls
+  270  vi final
+  271  vi final
+  272  cd /var/www/html/
+  273  ls
+  274  vi index.html
+  275  cd /var/www/html
+  276  ls
+  277   vi index.html
+  278  cp -p index.html sam-testing
+  279  vi sam-testing
+  280  cp sam-testing index.html
+  281  diff sam-testing index.html
+  282  cp sam-testing index.html
+  283  vi sam-testing
+  284  diff sam-testing index.html
+  285  cp sam-testing index.html
+  286  ls
+  287  exit
+  288  ls
+  289  cd /tmp
+  290  s
+  291  ls
+  292  mkdir /project
+  293  mv mamoo.zip /project/
+  294  cd /project
+  295  ls
+  296  tar xvf mamoo.zip
+  297  gunzip mamoo.zip
+  298  gunzip mamoo
+  299  file mamoo.zip
+  300  gunzip mamoo.zip
+  301  dnf install unzip -y
+  302  unzip mamoo.zip
+  303  ls
+  304  mv mamoo /var/www/html/
+  305  ls
+  306  cd /var/www/html/
+  307  ls
+  308  ls mamoo
+  309  ls mamoo/my-project/
+  310  ls -l mamoo/
+  311  ls -l mamoo/my-project/
+  312  curl localhost/mamoo/my-project/index.html
+  313  getenforce
+  314  setenforce 0
+  315  curl localhost/mamoo/my-project/index.html
+  316  ls
+  317  cd /mamoo/my-project/
+  318  ls
+  319  cd mamoo/
+  320  ls
+  321  cd my-project/
+  322  ls
+  323  cat index.html
+  324  ls src
+  325  vi index.html
+  326  vi ../../index.html
+  327  vi index.html
+  328  cd ..
+  329  rm -rf mamoo/
+  330  cd /tmp
+  331  ls
+  332  rm -rf my-logs/
+  333  rm -rf my-project/
+  334  ls
+  335  clear
+  336  ls
+  337  clear
+  338  exit
+  339  cd /var/www/html/
+  340  ls
+  341  cat Containerfile
+  342  cat Important_Configuration_Information
+  343  ls
+  344  cat index.html
+  345  ls
+  346  vi index.html.latest
+  347  cat index.html.latest
+  348  clear
+  349  cat index.html.latest
+  350  clear
+  351  ls
+  352  cat index.html.second-evaluation
+  353  ls
+  354  vi index.html-test1.bk
+  355  cat index.html-test1.bk
+  356  clear
+  357  ls
+
